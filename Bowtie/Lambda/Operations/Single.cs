@@ -1,0 +1,379 @@
+﻿using Serilog;
+using System;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
+
+namespace Bowtie.Lambda
+{
+    public partial class LambdaQuery<T>
+    {
+        #region sync
+
+        // simple/mapping query
+        public T Single(int? timeout = null)
+        {
+            try
+            {
+                var statement = string.Join(" ", "SELECT", SyntaxConstructor.GetSelectColumns(TableRefs[0].EntityType, Connection.DatabaseType), FromClause, WhereClause, OrderByClause);
+                return Connection.QuerySingle<T>(statement, Parameters, timeout);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, ex.Message);
+                return default;
+            }
+            finally
+            {
+                if (Connection.AutoRelease)
+                {
+                    Connection.Dispose();
+                }
+            }
+        }
+
+        // query with one param selector
+        public T Single<T1>(Expression<Func<T1, T>> selector, int? timeout = null)
+        {
+            try
+            {
+                var statement = string.Join(" ", "SELECT", SyntaxConstructor.GetSelectColumns(typeof(T1), Connection.DatabaseType), FromClause, WhereClause, OrderByClause);
+                return selector.Compile().Invoke(Connection.QuerySingle<T1>(statement, Parameters, timeout));
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, ex.Message);
+                return default;
+            }
+            finally
+            {
+                if (Connection.AutoRelease)
+                {
+                    Connection.Dispose();
+                }
+            }
+        }
+
+        #region query with multi param selector
+
+        public T Single<T1, T2>(Expression<Func<T1, T2, T>> selector, int? timeout = null)
+        {
+            try
+            {
+                var selectColumns = string.Join(", ", selector.Parameters.Select(p => p.Name + ".*").ToArray());
+                var statement = string.Join(" ", "SELECT", selectColumns, FromClause, WhereClause, OrderByClause);
+                return Connection.QuerySingle(statement, selector.Compile(), Parameters, timeout);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, ex.Message);
+                return default;
+            }
+            finally
+            {
+                if (Connection.AutoRelease)
+                {
+                    Connection.Dispose();
+                }
+            }
+        }
+
+        public T Single<T1, T2, T3>(Expression<Func<T1, T2, T3, T>> selector, int? timeout = null)
+        {
+            try
+            {
+                var selectColumns = string.Join(", ", selector.Parameters.Select(p => p.Name + ".*").ToArray());
+                var statement = string.Join(" ", "SELECT", selectColumns, FromClause, WhereClause, OrderByClause);
+                return Connection.QuerySingle(statement, selector.Compile(), Parameters, timeout);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, ex.Message);
+                return default;
+            }
+            finally
+            {
+                if (Connection.AutoRelease)
+                {
+                    Connection.Dispose();
+                }
+            }
+        }
+
+        public T Single<T1, T2, T3, T4>(Expression<Func<T1, T2, T3, T4, T>> selector, int? timeout = null)
+        {
+            try
+            {
+                var selectColumns = string.Join(", ", selector.Parameters.Select(p => p.Name + ".*").ToArray());
+                var statement = string.Join(" ", "SELECT", selectColumns, FromClause, WhereClause, OrderByClause);
+                return Connection.QuerySingle(statement, selector.Compile(), Parameters, timeout);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, ex.Message);
+                return default;
+            }
+            finally
+            {
+                if (Connection.AutoRelease)
+                {
+                    Connection.Dispose();
+                }
+            }
+        }
+
+        public T Single<T1, T2, T3, T4, T5>(Expression<Func<T1, T2, T3, T4, T5, T>> selector, int? timeout = null)
+        {
+            try
+            {
+                var selectColumns = string.Join(", ", selector.Parameters.Select(p => p.Name + ".*").ToArray());
+                var statement = string.Join(" ", "SELECT", selectColumns, FromClause, WhereClause, OrderByClause);
+                return Connection.QuerySingle(statement, selector.Compile(), Parameters, timeout);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, ex.Message);
+                return default;
+            }
+            finally
+            {
+                if (Connection.AutoRelease)
+                {
+                    Connection.Dispose();
+                }
+            }
+        }
+
+        public T Single<T1, T2, T3, T4, T5, T6>(Expression<Func<T1, T2, T3, T4, T5, T6, T>> selector, int? timeout = null)
+        {
+            try
+            {
+                var selectColumns = string.Join(", ", selector.Parameters.Select(p => p.Name + ".*").ToArray());
+                var statement = string.Join(" ", "SELECT", selectColumns, FromClause, WhereClause, OrderByClause);
+                return Connection.QuerySingle(statement, selector.Compile(), Parameters, timeout);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, ex.Message);
+                return default;
+            }
+            finally
+            {
+                if (Connection.AutoRelease)
+                {
+                    Connection.Dispose();
+                }
+            }
+        }
+
+        public T Single<T1, T2, T3, T4, T5, T6, T7>(Expression<Func<T1, T2, T3, T4, T5, T6, T7, T>> selector, int? timeout = null)
+        {
+            try
+            {
+                var selectColumns = string.Join(", ", selector.Parameters.Select(p => p.Name + ".*").ToArray());
+                var statement = string.Join(" ", "SELECT", selectColumns, FromClause, WhereClause, OrderByClause);
+                return Connection.QuerySingle(statement, selector.Compile(), Parameters, timeout);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, ex.Message);
+                return default;
+            }
+            finally
+            {
+                if (Connection.AutoRelease)
+                {
+                    Connection.Dispose();
+                }
+            }
+        }
+
+        #endregion
+
+        #endregion
+
+        #region async
+
+        // simple/mapping query
+        public async Task<T> SingleAsync(int? timeout = null)
+        {
+            try
+            {
+                var statement = string.Join(" ", "SELECT", SyntaxConstructor.GetSelectColumns(TableRefs[0].EntityType, Connection.DatabaseType), FromClause, WhereClause, OrderByClause);
+                return await Connection.QuerySingleAsync<T>(statement, Parameters, timeout);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, ex.Message);
+                return default;
+            }
+            finally
+            {
+                if (Connection.AutoRelease)
+                {
+                    Connection.Dispose();
+                }
+            }
+        }
+
+        // query with one param selector
+        public async Task<T> SingleAsync<T1>(Expression<Func<T1, T>> selector, int? timeout = null)
+        {
+            try
+            {
+                var statement = string.Join(" ", "SELECT", SyntaxConstructor.GetSelectColumns(typeof(T1), Connection.DatabaseType), FromClause, WhereClause, OrderByClause);
+                return selector.Compile().Invoke(await Connection.QuerySingleAsync<T1>(statement, Parameters, timeout));
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, ex.Message);
+                return default;
+            }
+            finally
+            {
+                if (Connection.AutoRelease)
+                {
+                    Connection.Dispose();
+                }
+            }
+        }
+
+        #region query with multi param selector
+
+        public async Task<T> SingleAsync<T1, T2>(Expression<Func<T1, T2, T>> selector, int? timeout = null)
+        {
+            try
+            {
+                var selectColumns = string.Join(", ", selector.Parameters.Select(p => p.Name + ".*").ToArray());
+                var statement = string.Join(" ", "SELECT", selectColumns, FromClause, WhereClause, OrderByClause);
+                return await Connection.QuerySingleAsync(statement, selector.Compile(), Parameters, timeout);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, ex.Message);
+                return default;
+            }
+            finally
+            {
+                if (Connection.AutoRelease)
+                {
+                    Connection.Dispose();
+                }
+            }
+        }
+
+        public async Task<T> SingleAsync<T1, T2, T3>(Expression<Func<T1, T2, T3, T>> selector, int? timeout = null)
+        {
+            try
+            {
+                var selectColumns = string.Join(", ", selector.Parameters.Select(p => p.Name + ".*").ToArray());
+                var statement = string.Join(" ", "SELECT", selectColumns, FromClause, WhereClause, OrderByClause);
+                return await Connection.QuerySingleAsync(statement, selector.Compile(), Parameters, timeout);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, ex.Message);
+                return default;
+            }
+            finally
+            {
+                if (Connection.AutoRelease)
+                {
+                    Connection.Dispose();
+                }
+            }
+        }
+
+        public async Task<T> SingleAsync<T1, T2, T3, T4>(Expression<Func<T1, T2, T3, T4, T>> selector, int? timeout = null)
+        {
+            try
+            {
+                var selectColumns = string.Join(", ", selector.Parameters.Select(p => p.Name + ".*").ToArray());
+                var statement = string.Join(" ", "SELECT", selectColumns, FromClause, WhereClause, OrderByClause);
+                return await Connection.QuerySingleAsync(statement, selector.Compile(), Parameters, timeout);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, ex.Message);
+                return default;
+            }
+            finally
+            {
+                if (Connection.AutoRelease)
+                {
+                    Connection.Dispose();
+                }
+            }
+        }
+
+        public async Task<T> SingleAsync<T1, T2, T3, T4, T5>(Expression<Func<T1, T2, T3, T4, T5, T>> selector, int? timeout = null)
+        {
+            try
+            {
+                var selectColumns = string.Join(", ", selector.Parameters.Select(p => p.Name + ".*").ToArray());
+                var statement = string.Join(" ", "SELECT", selectColumns, FromClause, WhereClause, OrderByClause);
+                return await Connection.QuerySingleAsync(statement, selector.Compile(), Parameters, timeout);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, ex.Message);
+                return default;
+            }
+            finally
+            {
+                if (Connection.AutoRelease)
+                {
+                    Connection.Dispose();
+                }
+            }
+        }
+
+        public async Task<T> SingleAsync<T1, T2, T3, T4, T5, T6>(Expression<Func<T1, T2, T3, T4, T5, T6, T>> selector, int? timeout = null)
+        {
+            try
+            {
+                var selectColumns = string.Join(", ", selector.Parameters.Select(p => p.Name + ".*").ToArray());
+                var statement = string.Join(" ", "SELECT", selectColumns, FromClause, WhereClause, OrderByClause);
+                return await Connection.QuerySingleAsync(statement, selector.Compile(), Parameters, timeout);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, ex.Message);
+                return default;
+            }
+            finally
+            {
+                if (Connection.AutoRelease)
+                {
+                    Connection.Dispose();
+                }
+            }
+        }
+
+        public async Task<T> SingleAsync<T1, T2, T3, T4, T5, T6, T7>(Expression<Func<T1, T2, T3, T4, T5, T6, T7, T>> selector, int? timeout = null)
+        {
+            try
+            {
+                var selectColumns = string.Join(", ", selector.Parameters.Select(p => p.Name + ".*").ToArray());
+                var statement = string.Join(" ", "SELECT", selectColumns, FromClause, WhereClause, OrderByClause);
+                return await Connection.QuerySingleAsync(statement, selector.Compile(), Parameters, timeout);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, ex.Message);
+                return default;
+            }
+            finally
+            {
+                if (Connection.AutoRelease)
+                {
+                    Connection.Dispose();
+                }
+            }
+        }
+
+        #endregion
+
+        #endregion
+    }
+}

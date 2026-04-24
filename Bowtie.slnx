@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="BowTie.Test/Bowtie.Test.csproj" />
+  <Project Path="BowTie/Bowtie.csproj" />
+</Solution>
