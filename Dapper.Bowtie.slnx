@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="Dapper.BowTie.Test/Dapper.Bowtie.Test.csproj" />
+  <Project Path="Dapper.BowTie/Dapper.Bowtie.csproj" />
+</Solution>
