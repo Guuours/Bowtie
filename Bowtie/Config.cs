@@ -2,21 +2,21 @@
 
 namespace Bowtie
 {
-    public enum ExceptionLevel
-    {
-        None,
-        WarningOnly,
-        ErrorOnly,
-        All
-    }
+    //public enum ExceptionLevel
+    //{
+    //    None,
+    //    WarningOnly,
+    //    ErrorOnly,
+    //    All
+    //}
 
     public class Config
     {
-        public ExceptionLevel ExceptionLevel = ExceptionLevel.ErrorOnly;
+        //public ExceptionLevel ExceptionLevel = ExceptionLevel.ErrorOnly;
 
         public List<NamedConnection> Connections { get; set; } = new List<NamedConnection>();
 
-        public int DefaultTimeout { get; set; } = 30;
+        public int DefaultQueryTimeout { get; set; } = 30;
     }
 
     public class NamedConnection

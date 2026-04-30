@@ -30,7 +30,7 @@ namespace Bowtie
             }
 
             // query
-            var result = RawConnection.Query<T>(statement, param, Transaction, true, timeout ?? DB.Config.DefaultTimeout, CommandType.Text);
+            var result = RawConnection.Query<T>(statement, param, Transaction, true, timeout ?? DB.Config.DefaultQueryTimeout, CommandType.Text);
             var data = result.AsList() ?? new List<T>();
 
             // stop stopwatch and log result
@@ -58,7 +58,7 @@ namespace Bowtie
             }
 
             // query
-            var result = RawConnection.Query(statement, selector, param, Transaction, true, "Id", timeout ?? DB.Config.DefaultTimeout, CommandType.Text);
+            var result = RawConnection.Query(statement, selector, param, Transaction, true, "Id", timeout ?? DB.Config.DefaultQueryTimeout, CommandType.Text);
             var data = result.AsList() ?? new List<T>();
 
             // stop stopwatch and log result
@@ -87,7 +87,7 @@ namespace Bowtie
             }
 
             // query
-            var result = RawConnection.Query(statement, selector, param, Transaction, true, "ID", timeout ?? DB.Config.DefaultTimeout, CommandType.Text);
+            var result = RawConnection.Query(statement, selector, param, Transaction, true, "ID", timeout ?? DB.Config.DefaultQueryTimeout, CommandType.Text);
             var data = result.AsList() ?? new List<T>();
 
             // stop stopwatch and log result
@@ -117,7 +117,7 @@ namespace Bowtie
             }
 
             // query
-            var result = RawConnection.Query(statement, selector, param, Transaction, true, "ID", timeout ?? DB.Config.DefaultTimeout, CommandType.Text);
+            var result = RawConnection.Query(statement, selector, param, Transaction, true, "ID", timeout ?? DB.Config.DefaultQueryTimeout, CommandType.Text);
             var data = result.AsList() ?? new List<T>();
 
             // stop stopwatch and log result
@@ -148,7 +148,7 @@ namespace Bowtie
             }
 
             // query
-            var result = RawConnection.Query(statement, selector, param, Transaction, true, "ID", timeout ?? DB.Config.DefaultTimeout, CommandType.Text);
+            var result = RawConnection.Query(statement, selector, param, Transaction, true, "ID", timeout ?? DB.Config.DefaultQueryTimeout, CommandType.Text);
             var data = result.AsList() ?? new List<T>();
 
             // stop stopwatch and log result
@@ -180,7 +180,7 @@ namespace Bowtie
             }
 
             // query
-            var result = RawConnection.Query(statement, selector, param, Transaction, true, "ID", timeout ?? DB.Config.DefaultTimeout, CommandType.Text);
+            var result = RawConnection.Query(statement, selector, param, Transaction, true, "ID", timeout ?? DB.Config.DefaultQueryTimeout, CommandType.Text);
             var data = result.AsList() ?? new List<T>();
 
             // stop stopwatch and log result
@@ -213,7 +213,7 @@ namespace Bowtie
             }
 
             // query
-            var result = RawConnection.Query(statement, selector, param, Transaction, true, "ID", timeout ?? DB.Config.DefaultTimeout, CommandType.Text);
+            var result = RawConnection.Query(statement, selector, param, Transaction, true, "ID", timeout ?? DB.Config.DefaultQueryTimeout, CommandType.Text);
             var data = result.AsList() ?? new List<T>();
 
             // stop stopwatch and log result
@@ -244,7 +244,7 @@ namespace Bowtie
             }
 
             // query
-            var result = await RawConnection.QueryAsync<T>(new CommandDefinition(statement, param, Transaction, timeout ?? DB.Config.DefaultTimeout, CommandType.Text, CommandFlags.Buffered, cancellationToken));
+            var result = await RawConnection.QueryAsync<T>(new CommandDefinition(statement, param, Transaction, timeout ?? DB.Config.DefaultQueryTimeout, CommandType.Text, CommandFlags.Buffered, cancellationToken));
             var data = result.AsList() ?? new List<T>();
 
             // stop stopwatch and log result
@@ -272,7 +272,7 @@ namespace Bowtie
             }
 
             // query
-            var result = await RawConnection.QueryAsync(statement, selector, param, Transaction, true, "Id", timeout ?? DB.Config.DefaultTimeout, CommandType.Text);
+            var result = await RawConnection.QueryAsync(statement, selector, param, Transaction, true, "Id", timeout ?? DB.Config.DefaultQueryTimeout, CommandType.Text);
             var data = result.AsList() ?? new List<T>();
 
             // stop stopwatch and log result
@@ -301,7 +301,7 @@ namespace Bowtie
             }
 
             // query
-            var result = await RawConnection.QueryAsync(statement, selector, param, Transaction, true, "Id", timeout ?? DB.Config.DefaultTimeout, CommandType.Text);
+            var result = await RawConnection.QueryAsync(statement, selector, param, Transaction, true, "Id", timeout ?? DB.Config.DefaultQueryTimeout, CommandType.Text);
             var data = result.AsList() ?? new List<T>();
 
             // stop stopwatch and log result
@@ -331,7 +331,7 @@ namespace Bowtie
             }
 
             // query
-            var result = await RawConnection.QueryAsync(statement, selector, param, Transaction, true, "Id", timeout ?? DB.Config.DefaultTimeout, CommandType.Text);
+            var result = await RawConnection.QueryAsync(statement, selector, param, Transaction, true, "Id", timeout ?? DB.Config.DefaultQueryTimeout, CommandType.Text);
             var data = result.AsList() ?? new List<T>();
 
             // stop stopwatch and log result
@@ -362,7 +362,7 @@ namespace Bowtie
             }
 
             // query
-            var result = await RawConnection.QueryAsync(statement, selector, param, Transaction, true, "Id", timeout ?? DB.Config.DefaultTimeout, CommandType.Text);
+            var result = await RawConnection.QueryAsync(statement, selector, param, Transaction, true, "Id", timeout ?? DB.Config.DefaultQueryTimeout, CommandType.Text);
             var data = result.AsList() ?? new List<T>();
 
             // stop stopwatch and log result
@@ -394,7 +394,7 @@ namespace Bowtie
             }
 
             // query
-            var result = await RawConnection.QueryAsync(statement, selector, param, Transaction, true, "Id", timeout ?? DB.Config.DefaultTimeout, CommandType.Text);
+            var result = await RawConnection.QueryAsync(statement, selector, param, Transaction, true, "Id", timeout ?? DB.Config.DefaultQueryTimeout, CommandType.Text);
             var data = result.AsList() ?? new List<T>();
 
             // stop stopwatch and log result
@@ -427,7 +427,7 @@ namespace Bowtie
             }
 
             // query
-            var result = await RawConnection.QueryAsync(statement, selector, param, Transaction, true, "Id", timeout ?? DB.Config.DefaultTimeout, CommandType.Text);
+            var result = await RawConnection.QueryAsync(statement, selector, param, Transaction, true, "Id", timeout ?? DB.Config.DefaultQueryTimeout, CommandType.Text);
             var data = result.AsList() ?? new List<T>();
 
             // stop stopwatch and log result

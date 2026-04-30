@@ -29,7 +29,7 @@ namespace Bowtie
             }
 
             // query
-            var data = RawConnection.QuerySingle<T>(statement, param, Transaction, timeout ?? DB.Config.DefaultTimeout, CommandType.Text);
+            var data = RawConnection.QuerySingle<T>(statement, param, Transaction, timeout ?? DB.Config.DefaultQueryTimeout, CommandType.Text);
 
             // stop stopwatch and log result
             stopwatch.Stop();
@@ -56,7 +56,7 @@ namespace Bowtie
             }
 
             // query
-            var data = RawConnection.QuerySingle<T>(statement, param, Transaction, timeout ?? DB.Config.DefaultTimeout, CommandType.Text);
+            var data = RawConnection.QuerySingle<T>(statement, param, Transaction, timeout ?? DB.Config.DefaultQueryTimeout, CommandType.Text);
 
             // stop stopwatch and log result
             stopwatch.Stop();
@@ -84,7 +84,7 @@ namespace Bowtie
             }
 
             // query
-            var data = RawConnection.QuerySingle<T>(statement, param, Transaction, timeout ?? DB.Config.DefaultTimeout, CommandType.Text);
+            var data = RawConnection.QuerySingle<T>(statement, param, Transaction, timeout ?? DB.Config.DefaultQueryTimeout, CommandType.Text);
 
             // stop stopwatch and log result
             stopwatch.Stop();
@@ -113,7 +113,7 @@ namespace Bowtie
             }
 
             // query
-            var data = RawConnection.QuerySingle<T>(statement, param, Transaction, timeout ?? DB.Config.DefaultTimeout, CommandType.Text);
+            var data = RawConnection.QuerySingle<T>(statement, param, Transaction, timeout ?? DB.Config.DefaultQueryTimeout, CommandType.Text);
 
             // stop stopwatch and log result
             stopwatch.Stop();
@@ -143,7 +143,7 @@ namespace Bowtie
             }
 
             // query
-            var data = RawConnection.QuerySingle<T>(statement, param, Transaction, timeout ?? DB.Config.DefaultTimeout, CommandType.Text);
+            var data = RawConnection.QuerySingle<T>(statement, param, Transaction, timeout ?? DB.Config.DefaultQueryTimeout, CommandType.Text);
 
             // stop stopwatch and log result
             stopwatch.Stop();
@@ -174,7 +174,7 @@ namespace Bowtie
             }
 
             // query
-            var data = RawConnection.QuerySingle<T>(statement, param, Transaction, timeout ?? DB.Config.DefaultTimeout, CommandType.Text);
+            var data = RawConnection.QuerySingle<T>(statement, param, Transaction, timeout ?? DB.Config.DefaultQueryTimeout, CommandType.Text);
 
             // stop stopwatch and log result
             stopwatch.Stop();
@@ -206,7 +206,7 @@ namespace Bowtie
             }
 
             // query
-            var data = RawConnection.QuerySingle<T>(statement, param, Transaction, timeout ?? DB.Config.DefaultTimeout, CommandType.Text);
+            var data = RawConnection.QuerySingle<T>(statement, param, Transaction, timeout ?? DB.Config.DefaultQueryTimeout, CommandType.Text);
 
             // stop stopwatch and log result
             stopwatch.Stop();
@@ -236,7 +236,7 @@ namespace Bowtie
             }
 
             // query
-            var data = await RawConnection.QuerySingleAsync<T>(new CommandDefinition(statement, param, Transaction, timeout ?? DB.Config.DefaultTimeout, CommandType.Text, CommandFlags.Buffered, cancellationToken));
+            var data = await RawConnection.QuerySingleAsync<T>(new CommandDefinition(statement, param, Transaction, timeout ?? DB.Config.DefaultQueryTimeout, CommandType.Text, CommandFlags.Buffered, cancellationToken));
 
             // stop stopwatch and log result
             stopwatch.Stop();
@@ -263,7 +263,7 @@ namespace Bowtie
             }
 
             // query
-            var data = await RawConnection.QuerySingleAsync<T>(new CommandDefinition(statement, param, Transaction, timeout ?? DB.Config.DefaultTimeout, CommandType.Text, CommandFlags.Buffered, cancellationToken));
+            var data = await RawConnection.QuerySingleAsync<T>(new CommandDefinition(statement, param, Transaction, timeout ?? DB.Config.DefaultQueryTimeout, CommandType.Text, CommandFlags.Buffered, cancellationToken));
 
             // stop stopwatch and log result
             stopwatch.Stop();
@@ -291,7 +291,7 @@ namespace Bowtie
             }
 
             // query
-            var data = await RawConnection.QuerySingleAsync<T>(new CommandDefinition(statement, param, Transaction, timeout ?? DB.Config.DefaultTimeout, CommandType.Text, CommandFlags.Buffered, cancellationToken));
+            var data = await RawConnection.QuerySingleAsync<T>(new CommandDefinition(statement, param, Transaction, timeout ?? DB.Config.DefaultQueryTimeout, CommandType.Text, CommandFlags.Buffered, cancellationToken));
 
             // stop stopwatch and log result
             stopwatch.Stop();
@@ -320,7 +320,7 @@ namespace Bowtie
             }
 
             // query
-            var data = await RawConnection.QuerySingleAsync<T>(new CommandDefinition(statement, param, Transaction, timeout ?? DB.Config.DefaultTimeout, CommandType.Text, CommandFlags.Buffered, cancellationToken));
+            var data = await RawConnection.QuerySingleAsync<T>(new CommandDefinition(statement, param, Transaction, timeout ?? DB.Config.DefaultQueryTimeout, CommandType.Text, CommandFlags.Buffered, cancellationToken));
 
             // stop stopwatch and log result
             stopwatch.Stop();
@@ -350,7 +350,7 @@ namespace Bowtie
             }
 
             // query
-            var data = await RawConnection.QuerySingleAsync<T>(new CommandDefinition(statement, param, Transaction, timeout ?? DB.Config.DefaultTimeout, CommandType.Text, CommandFlags.Buffered, cancellationToken));
+            var data = await RawConnection.QuerySingleAsync<T>(new CommandDefinition(statement, param, Transaction, timeout ?? DB.Config.DefaultQueryTimeout, CommandType.Text, CommandFlags.Buffered, cancellationToken));
 
             // stop stopwatch and log result
             stopwatch.Stop();
@@ -381,7 +381,7 @@ namespace Bowtie
             }
 
             // query
-            var data = await RawConnection.QuerySingleAsync<T>(new CommandDefinition(statement, param, Transaction, timeout ?? DB.Config.DefaultTimeout, CommandType.Text, CommandFlags.Buffered, cancellationToken));
+            var data = await RawConnection.QuerySingleAsync<T>(new CommandDefinition(statement, param, Transaction, timeout ?? DB.Config.DefaultQueryTimeout, CommandType.Text, CommandFlags.Buffered, cancellationToken));
 
             // stop stopwatch and log result
             stopwatch.Stop();
@@ -413,7 +413,7 @@ namespace Bowtie
             }
 
             // query
-            var data = await RawConnection.QuerySingleAsync<T>(new CommandDefinition(statement, param, Transaction, timeout ?? DB.Config.DefaultTimeout, CommandType.Text, CommandFlags.Buffered, cancellationToken));
+            var data = await RawConnection.QuerySingleAsync<T>(new CommandDefinition(statement, param, Transaction, timeout ?? DB.Config.DefaultQueryTimeout, CommandType.Text, CommandFlags.Buffered, cancellationToken));
 
             // stop stopwatch and log result
             stopwatch.Stop();

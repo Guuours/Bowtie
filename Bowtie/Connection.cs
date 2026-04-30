@@ -89,7 +89,7 @@ namespace Bowtie
             }
 
             // execute
-            var affected = RawConnection.Execute(statement, param, Transaction, timeout ?? DB.Config.DefaultTimeout, CommandType.Text);
+            var affected = RawConnection.Execute(statement, param, Transaction, timeout ?? DB.Config.DefaultQueryTimeout, CommandType.Text);
 
             // stop stopwatch and log result
             stopwatch.Stop();
@@ -112,7 +112,7 @@ namespace Bowtie
             }
 
             // execute reader
-            var reader = RawConnection.ExecuteReader(statement, param, Transaction, timeout ?? DB.Config.DefaultTimeout, CommandType.Text);
+            var reader = RawConnection.ExecuteReader(statement, param, Transaction, timeout ?? DB.Config.DefaultQueryTimeout, CommandType.Text);
 
             // stop stopwatch and log result
             stopwatch.Stop();
@@ -141,7 +141,7 @@ namespace Bowtie
             }
 
             // execute
-            var affected = await RawConnection.ExecuteAsync(new CommandDefinition(statement, param, Transaction, timeout ?? DB.Config.DefaultTimeout, CommandType.Text, CommandFlags.Buffered, cancellationToken));
+            var affected = await RawConnection.ExecuteAsync(new CommandDefinition(statement, param, Transaction, timeout ?? DB.Config.DefaultQueryTimeout, CommandType.Text, CommandFlags.Buffered, cancellationToken));
 
             // stop stopwatch and log result
             stopwatch.Stop();
@@ -164,7 +164,7 @@ namespace Bowtie
             }
 
             // execute reader
-            var reader = await RawConnection.ExecuteReaderAsync(new CommandDefinition(statement, param, Transaction, timeout ?? DB.Config.DefaultTimeout, CommandType.Text, CommandFlags.Buffered, cancellationToken));
+            var reader = await RawConnection.ExecuteReaderAsync(new CommandDefinition(statement, param, Transaction, timeout ?? DB.Config.DefaultQueryTimeout, CommandType.Text, CommandFlags.Buffered, cancellationToken));
 
             // stop stopwatch and log result
             stopwatch.Stop();
