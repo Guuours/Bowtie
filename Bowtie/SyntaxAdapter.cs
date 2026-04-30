@@ -133,5 +133,19 @@ SELECT TOP ({{1}}) * FROM
                     return string.Empty;
             }
         }
+
+        internal static string GetJoinUpdateStatement(DatabaseType type)
+        {
+            switch (type)
+            {
+                case DatabaseType.MSSQL:
+                case DatabaseType.MSSQL_LEGACY:
+                    return "UPDATE {0} {1} FROM {2} {3}";
+                case DatabaseType.MYSQL:
+                    return "UPDATE {2} {1} {3}";
+                default:
+                    return string.Empty;
+            }
+        }
     }
 }

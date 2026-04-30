@@ -21,6 +21,19 @@ namespace Bowtie.Test
         [Test]
         public void Test()
         {
+            // delete test
+            db.From<User>()
+              .Join<User, Order>((u, o)=>u.Id == o.UserId)
+              .Where<Order, User>((o, u) => u.Age > 60 && o.Status == OrderStatus.Paid)
+              .Delete();
+
+            // update test
+            db.From<User>()
+              .Join<Order, User>((o, u) => o.UserId == u.Id && o.Status == OrderStatus.Paid)
+              .Set(u => u.Name == "test")
+              .Where(u => u.Age > 18)
+              .Update();
+
             // simple query, return same type with From call
             var users = DB
               .From<User>()
@@ -52,7 +65,7 @@ namespace Bowtie.Test
               .OrderByDescending<User>(u => u.Id)
               .Select<Order, OrderItem, User>((o, oi, u) => GetSummary(oi, o, u));
 
-            
+
 
             var i = 1;
         }

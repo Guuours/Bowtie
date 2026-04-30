@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 
@@ -27,7 +28,7 @@ namespace Bowtie.Lambda
             {
                 var tblNameFirst = SyntaxConstructor.GetTableName(typeof(T1));
                 var tblNameSecond = SyntaxConstructor.GetTableName(typeof(T2));
-                var tblRefFrom = TableRefs[0];
+                var tblRefFrom = TableRefs.First();
                 var firstAlias = string.Empty;
                 if (tblNameFirst == tblRefFrom.Name)
                 {
@@ -45,7 +46,7 @@ namespace Bowtie.Lambda
             // add new table ref
             var tblRef = new TableReference
             {
-                DatabaseType = Connection.DatabaseType,
+                DatabaseType = DatabaseType,
                 JoinType = joinType + " JOIN"
             };
             if (tblRefFirst == null)
@@ -66,7 +67,7 @@ namespace Bowtie.Lambda
 
             // parse on condition
             var sb = new StringBuilder();
-            ParseCondition(exp.Body, sb, Connection.DatabaseType);
+            ParseCondition(exp.Body, sb, DatabaseType);
             tblRef.OnCondition = $"ON {sb}";
 
             return this;

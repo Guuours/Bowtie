@@ -1,9 +1,14 @@
 ```markdown
 # Bowtie ORM
 
-> **Note**: This is a very early version of Bowtie ORM. For preview purposes only, use it at your own risk.
+> **Note**: This is a very early version of Bowtie ORM. For preview purposes only
+Some of the APIs are still in flux and may change without warning.
+And some of the features are not fully implemented or fully tested yet.
+Please use it at your own risk.
 
-Bowtie is a lightweight, fluent Object-Relational Mapper (ORM) for .NET. It makes interacting with your database straightforward by combining basic Active Record patterns with type-safe Lambda Expressions. It targets `.NET Standard 2.0` and `.NET 8`, and supports both MS SQL and MySQL database dialects.
+Bowtie is a lightweight, fluent Object-Relational Mapper (ORM) for .NET.
+It makes interacting with your database straightforward by combining basic Active Record patterns with type-safe Lambda Expressions.
+It targets `.NET Standard 2.0` and aiming to provide max compatibility, and supports both SQLServer and MySQL database dialects.
 
 ## Configuration
 
@@ -21,10 +26,38 @@ Bowtie automatically reads database connection settings from either `bowtie.json
 } 
 ```
 
+## Connection Management
+
 You can initialize a connection instance anywhere in your code like this:
 ```csharp
 var db = DB.Connect();  // Uses the first connection from the config by default
 var db = DB.Connect("myconn");  // Connects using the named connection from the config
+```
+
+And the connection would be released after the first query is executed.
+To keep the connection alive for multiple operations, you can call `db.KeepAlive()` to prevent auto-disposal after the first query, and then call `db.Dispose()` manually when you're done with all your database operations.
+```csharp
+var db = DB.Connect().KeepAlive();
+// your database operations here
+db.Dispose();
+```
+
+or you can use `using` statement to automatically dispose the connection when it's out of scope:
+```csharp
+using (var db = DB.Connect())
+{
+    // your database operations here
+}
+```
+
+### Connection Auto-Disposal
+
+When using functions directly from DB class, the database connection would be automatically created and disposed for you. For example:
+
+```csharp
+var users = DB.From<User>()
+  .Where(u => u.Age > 18)
+  .Select();
 ```
 
 ## Defining Entities
@@ -32,6 +65,8 @@ var db = DB.Connect("myconn");  // Connects using the named connection from the 
 Map your domain models to database tables by inheriting from `BaseEntity`. Use `[Table]` to specify table names, and `[Column]` to map properties to database columns.
 
 ```csharp
+// Maps this class to the "orders" table in the database
+// If the table name is the same as the class name, you can omit the attribute
 [Table("orders")]
 public class Order : BaseEntity
 {
@@ -46,6 +81,10 @@ public class Order : BaseEntity
 
     [Column("status")]
     public OrderStatus Status { get; set; } = OrderStatus.Pending;
+
+    // use Ignore attribute to exclude this property from being included in INSERT or UPDATE statements
+    [Column("created_at", Ignore = When.Update)]
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
     // IsNew determines whether calling Save() generates an INSERT or UPDATE query
     public override bool IsNew(Connection conn = null)
@@ -65,6 +104,22 @@ myOrder.Save(); // Evaluates IsNew() which returns true (Id == 0), executing INS
 
 myOrder.TotalAmount = 89.99m;
 myOrder.Save(); // Id != 0, executing UPDATE
+```
+
+## Querying Data (Raw SQL)
+
+If you prefer writing raw SQL, Bowtie provides a simple API for that as well. You can execute any SQL query and map the results back to your entities or DTOs.
+
+```csharp
+var users = DB.Query<User>("SELECT * FROM users WHERE age > @age", new { age = 18 });
+```
+
+And for count and pagination, you can just call the corresponding methods with normal select queries
+without worrying about the underlying SQL generation for count and pagination, Bowtie will handle that for you.
+
+```csharp
+int totalUsers = DB.Count("SELECT * FROM users WHERE age > @age", new { age = 18 });
+var pagedUsers = DB.SelectPage<User>(2, 10, "SELECT * FROM users WHERE age > @age", new { age = 18 });
 ```
 
 ## Querying Data (Lambda Expressions)
@@ -122,13 +177,26 @@ public ItemSold GetSummary(OrderItem oi, Order o, User u)
 }
 ```
 
-### Conditional Deletions
+### Updating Records
+
+Update records using conditions via the lambda builder:
+
+```csharp
+db.From<User>()
+    .Join<Order, User>((o, u) => o.UserId == u.Id && o.Status == OrderStatus.Paid)
+    .Set(u => u.Name == "test")
+    .Where(u => u.Age > 18)
+    .Update();
+```
+
+### Deleting Records
 
 Delete records using conditions via the lambda builder:
 
 ```csharp
-int rowsDeleted = DB.Query<Order>()
-  .Where(o => o.Status == OrderStatus.Canceled)
-  .Delete();
+db.From<User>()
+    .Join<User, Order>((u, o)=>u.Id == o.UserId)
+    .Where<Order, User>((o, u) => u.Age > 60 && o.Status == OrderStatus.Paid)
+    .Delete();
 ```
 ```

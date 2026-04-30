@@ -9,7 +9,7 @@ namespace Bowtie.Lambda
         internal LambdaQuery<T> Where(Expression exp)
         {
             var sb = new StringBuilder();
-            ParseCondition(exp, sb, Connection.DatabaseType);
+            ParseCondition(exp, sb, DatabaseType);
             WhereClause = $"WHERE {sb}";
             return this;
         }

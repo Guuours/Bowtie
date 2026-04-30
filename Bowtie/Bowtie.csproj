@@ -5,9 +5,10 @@
     <Title>Bowtie</Title>
     <Authors>Guuours</Authors>
     <Copyright>Copyright @ Guuours 2026</Copyright>
-    <Version>0.0.1</Version>
+    <Version>0.0.2</Version>
     <PackageIcon>suit.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+    <Description>Bowtie is a lightweight, fluent Object-Relational Mapper (ORM) for .NET.</Description>
   </PropertyGroup>
 
   <ItemGroup>
@@ -19,6 +20,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
     <None Update="suit.png">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>

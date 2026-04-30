@@ -7,7 +7,7 @@ namespace Bowtie.Lambda
     {
         public LambdaQuery<T> Set(Expression<Func<T, bool>> exp)
         {
-            ParseAssignment(exp.Body, Assignments, Connection.DatabaseType);
+            ParseAssignment(exp.Body, Assignments, DatabaseType);
             return this;
         }
     }

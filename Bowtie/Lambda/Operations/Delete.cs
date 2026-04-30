@@ -10,8 +10,7 @@ namespace Bowtie.Lambda
         {
             try
             {
-                var statement = $"DELETE {WhereStatement}";
-                return Connection.Execute(statement, Parameters, timeout);
+                return Connection.Execute(DeleteStatement, Parameters, timeout);
             }
             catch (Exception ex)
             {
@@ -31,8 +30,7 @@ namespace Bowtie.Lambda
         {
             try
             {
-                var statement = $"DELETE {WhereStatement}";
-                return await Connection.ExecuteAsync(statement, Parameters, timeout);
+                return await Connection.ExecuteAsync(DeleteStatement, Parameters, timeout);
             }
             catch (Exception ex)
             {

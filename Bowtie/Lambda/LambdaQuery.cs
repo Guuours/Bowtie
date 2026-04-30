@@ -41,24 +41,9 @@ namespace Bowtie.Lambda
 
     public partial class LambdaQuery<T>
     {
+        public DatabaseType DatabaseType { get; set; }
+
         internal Connection Connection { get; set; }
-
-        //internal List<string> SelectColumns { get; set; } = new List<string>();
-
-        //internal string SelectClause
-        //{
-        //    get
-        //    {
-        //        if (SelectColumns.Count > 0)
-        //        {
-        //            return "SELECT " + string.Join(", ", SelectColumns);
-        //        }
-        //        else
-        //        {
-        //            return "SELECT *";
-        //        }
-        //    }
-        //}
 
         internal List<string> Assignments { get; set; } = new List<string>();
 
@@ -106,27 +91,33 @@ namespace Bowtie.Lambda
             }
         }
 
-        public string WhereStatementWithOrderBy
-        {
-            get
-            {
-                return string.Join(" ", FromClause, WhereClause, OrderByClause);
-            }
-        }
-
-        public string WhereStatement
-        {
-            get
-            {
-                return string.Join(" ", FromClause, WhereClause);
-            }
-        }
-
         public string UpdateStatement
         {
             get
             {
-                return string.Join(" ", "UPDATE", null, SetClause, WhereClause);
+                if (TableRefs.Count < 2)
+                {
+                    return string.Join(" ", "UPDATE", TableRefs.First().Name.ApplyTableModifier(DatabaseType), SetClause, WhereClause);
+                }
+                else
+                {
+                    return string.Format(SyntaxAdapter.GetJoinUpdateStatement(DatabaseType), TableRefs.First().Alias, SetClause, FromClause.Substring(5), WhereClause);
+                }
+            }
+        }
+
+        public string DeleteStatement
+        {
+            get
+            {
+                if (TableRefs.Count < 2)
+                {
+                    return string.Join(" ", "DELETE", FromClause, WhereClause);
+                }
+                else
+                {
+                    return string.Join(" ", "DELETE", TableRefs.First().Alias, FromClause, WhereClause);
+                }
             }
         }
 
@@ -145,7 +136,7 @@ namespace Bowtie.Lambda
             {
                 Parameters.Add(name, param);
             }
-            return SyntaxAdapter.ApplyParameterPrefix(name, Connection.DatabaseType);
+            return SyntaxAdapter.ApplyParameterPrefix(name, DatabaseType);
         }
     }
 }

@@ -10,7 +10,7 @@ namespace Bowtie.Lambda
         {
             try
             {
-                var statement = $"SELECT COUNT(*) {WhereStatement}";
+                var statement = string.Join(" ", "SELECT COUNT(*)", FromClause, WhereClause);
                 return Connection.QueryFirstOrDefault<int>(statement, Parameters, timeout);
             }
             catch (Exception ex)
@@ -31,7 +31,7 @@ namespace Bowtie.Lambda
         {
             try
             {
-                var statement = $"SELECT COUNT(*) {WhereStatement}";
+                var statement = string.Join(" ", "SELECT COUNT(*)", FromClause, WhereClause);
                 return await Connection.QueryFirstOrDefaultAsync<int>(statement, Parameters, timeout);
             }
             catch (Exception ex)

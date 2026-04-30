@@ -17,7 +17,7 @@ namespace Bowtie.Lambda
         {
             try
             {
-                var statement = string.Join(" ", "SELECT", SyntaxConstructor.GetSelectColumns(TableRefs[0].EntityType, Connection.DatabaseType), FromClause, WhereClause, OrderByClause);
+                var statement = string.Join(" ", "SELECT", SyntaxConstructor.GetSelectColumns(TableRefs.First().EntityType, DatabaseType), FromClause, WhereClause, OrderByClause);
                 return Connection.Query<T>(statement, Parameters, timeout);
             }
             catch (Exception ex)
@@ -39,7 +39,7 @@ namespace Bowtie.Lambda
         {
             try
             {
-                var statement = string.Join(" ", "SELECT", SyntaxConstructor.GetSelectColumns(typeof(T1), Connection.DatabaseType), FromClause, WhereClause, OrderByClause);
+                var statement = string.Join(" ", "SELECT", SyntaxConstructor.GetSelectColumns(typeof(T1), DatabaseType), FromClause, WhereClause, OrderByClause);
                 return Connection.Query<T1>(statement, Parameters, timeout).Select(selector.Compile()).AsList();
             }
             catch (Exception ex)
@@ -201,7 +201,7 @@ namespace Bowtie.Lambda
         {
             try
             {
-                var statement = string.Join(" ", "SELECT", SyntaxConstructor.GetSelectColumns(TableRefs[0].EntityType, Connection.DatabaseType), FromClause, WhereClause, OrderByClause);
+                var statement = string.Join(" ", "SELECT", SyntaxConstructor.GetSelectColumns(TableRefs.First().EntityType, DatabaseType), FromClause, WhereClause, OrderByClause);
                 return await Connection.QueryAsync<T>(statement, Parameters, timeout);
             }
             catch (Exception ex)
@@ -223,8 +223,8 @@ namespace Bowtie.Lambda
         {
             try
             {
-                var statement = string.Join(" ", "SELECT", SyntaxConstructor.GetSelectColumns(typeof(T1), Connection.DatabaseType), FromClause, WhereClause, OrderByClause);
-                return Connection.Query<T1>(statement, Parameters, timeout).Select(selector.Compile()).AsList();
+                var statement = string.Join(" ", "SELECT", SyntaxConstructor.GetSelectColumns(typeof(T1), DatabaseType), FromClause, WhereClause, OrderByClause);
+                return (await Connection.QueryAsync<T1>(statement, Parameters, timeout)).Select(selector.Compile()).AsList();
             }
             catch (Exception ex)
             {

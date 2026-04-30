@@ -28,7 +28,7 @@ namespace Bowtie
             // mssql with hint
             if (withHint.HasValue)
             {
-                if (lambda.Connection.DatabaseType != DatabaseType.MSSQL && lambda.Connection.DatabaseType != DatabaseType.MSSQL_LEGACY)
+                if (lambda.DatabaseType != DatabaseType.MSSQL && lambda.DatabaseType != DatabaseType.MSSQL_LEGACY)
                 {
                     throw new Exception("Can't apply hint on MySQL or Oracle");
                 }
@@ -60,7 +60,7 @@ namespace Bowtie.Lambda
             var tblName = SyntaxConstructor.GetTableName(type);
             var tblRef = new TableReference
             {
-                DatabaseType = Connection.DatabaseType,
+                DatabaseType = DatabaseType,
                 JoinType = "FROM",
                 Name = tblName,
                 EntityType = type

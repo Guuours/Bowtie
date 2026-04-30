@@ -132,6 +132,15 @@ namespace Bowtie
             return statement;
         }
 
+        internal static string GetSelectPageStatement(int step, int size, string statement, string orderBy, DatabaseType dbType)
+        {
+            statement = SyntaxAdapter.GetPaginationStatement(dbType, statement, orderBy);
+            // calculate pagination
+            statement = string.Format(statement, (step - 1) * size, size);
+
+            return statement;
+        }
+
         internal static string GetInsertStatement(Type type, string tableName, DatabaseType dbType)
         {
             var cacheKey = string.Join("_", "INSERT", dbType,
