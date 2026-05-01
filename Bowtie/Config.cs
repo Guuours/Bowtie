@@ -32,6 +32,6 @@ namespace Bowtie
 
     internal class AppSettingsConfigWrapper
     {
-        public Config Accessor { get; set; }
+        public Config Bowtie { get; set; }
     }
 }

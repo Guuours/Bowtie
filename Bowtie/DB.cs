@@ -38,7 +38,7 @@ namespace Bowtie
                         else if (appSettingsJsonInfo.Exists)
                         {
                             var wrapper = JsonConvert.DeserializeObject<AppSettingsConfigWrapper>(File.ReadAllText(appSettingsJsonInfo.FullName));
-                            config = wrapper.Accessor;
+                            config = wrapper.Bowtie;
                         }
                         else
                         {
@@ -57,30 +57,6 @@ namespace Bowtie
                             {
                                 DefaultConnectionName = config.Connections[0].Name;
                             }
-
-                            // todo: initialize exception level
-                            //Log.ExceptionLevel = config.ExceptionLevel;
-
-                            // todo: initialize logger
-                            //if (!string.IsNullOrEmpty(config.Logger))
-                            //{
-                            //    ILoggerRepository logRepository;
-                            //    var entryAssembly = Assembly.GetEntryAssembly() ?? Assembly.GetCallingAssembly();
-                            //    if (entryAssembly == null)
-                            //    {
-                            //        logRepository = LogManager.GetRepository("Unknown");
-                            //    }
-                            //    else
-                            //    {
-                            //        logRepository = LogManager.GetRepository(entryAssembly);
-                            //    }
-
-                            //    if (log4netConfigInfo.Exists)
-                            //    {
-                            //        XmlConfigurator.Configure(logRepository, log4netConfigInfo);
-                            //    }
-                            //    AccessorLogger.LogWriter = LogManager.GetLogger(entryAssembly, config.Logger);
-                            //}
                         }
                     }
                     catch (Exception ex)

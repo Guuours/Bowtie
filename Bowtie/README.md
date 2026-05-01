@@ -1,7 +1,7 @@
 ```markdown
 # Bowtie ORM
 
-> **Note**: This is a very early version of Bowtie ORM. For preview purposes only
+**Note**: This is a very early version of Bowtie ORM. For preview purposes only
 Some of the APIs are still in flux and may change without warning.
 And some of the features are not fully implemented or fully tested yet.
 Please use it at your own risk.
@@ -198,5 +198,4 @@ db.From<User>()
     .Join<User, Order>((u, o)=>u.Id == o.UserId)
     .Where<Order, User>((o, u) => u.Age > 60 && o.Status == OrderStatus.Paid)
     .Delete();
-```
 ```
