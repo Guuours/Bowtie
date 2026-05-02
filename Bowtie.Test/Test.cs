@@ -1,4 +1,5 @@
-﻿using System.Linq.Expressions;
+﻿using Serilog;
+using System.Linq.Expressions;
 
 namespace Bowtie.Test
 {
@@ -9,6 +10,14 @@ namespace Bowtie.Test
         [SetUp]
         public void Setup()
         {
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Debug()
+                .WriteTo.File("logs/test.txt",
+                rollingInterval: RollingInterval.Day, // 每天滚动生成新文件
+                retainedFileCountLimit: 7,            // 保留最近7天的日志
+                fileSizeLimitBytes: 10 * 1024 * 1024, // 单个文件上限 10MB
+                rollOnFileSizeLimit: true)            // 超过大小即滚动
+                .CreateLogger();
             db = DB.Connect();
         }
 
@@ -23,7 +32,7 @@ namespace Bowtie.Test
         {
             // delete test
             db.From<User>()
-              .Join<User, Order>((u, o)=>u.Id == o.UserId)
+              .Join<User, Order>((u, o) => u.Id == o.UserId)
               .Where<Order, User>((o, u) => u.Age > 60 && o.Status == OrderStatus.Paid)
               .Delete();
 
